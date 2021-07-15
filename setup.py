@@ -23,7 +23,6 @@ def get_extensions():
     extra_compile_args = {"cxx": []}
     define_macros = []
 
-    
     if torch.cuda.is_available() and CUDA_HOME is not None:
         extension = CUDAExtension
         sources += source_cuda
@@ -33,6 +32,8 @@ def get_extensions():
             "-D__CUDA_NO_HALF_OPERATORS__",
             "-D__CUDA_NO_HALF_CONVERSIONS__",
             "-D__CUDA_NO_HALF2_OPERATORS__",
+            "--gpu-architecture=compute_75",
+            "--gpu-code=sm_75",
         ]
     else:
         # raise NotImplementedError('Cuda is not available')
